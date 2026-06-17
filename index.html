@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L102 测光表使用说明书</title>
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --paper: #fffdf8;
+      --ink: #1f1b16;
+      --muted: #6a6257;
+      --line: #d8cdbd;
+      --accent: #9f3d22;
+      --accent-soft: #f3ddd4;
+      --shadow: 0 18px 45px rgba(58, 44, 28, 0.12);
+      --radius: 20px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(159, 61, 34, 0.08), transparent 28%),
+        linear-gradient(180deg, #f7f2e8 0%, #efe7da 100%);
+      line-height: 1.7;
+    }
+
+    .hero {
+      padding: 56px 20px 28px;
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(255, 253, 248, 0.96), rgba(248, 241, 230, 0.96));
+      border: 1px solid rgba(159, 61, 34, 0.12);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .hero-copy {
+      padding: 40px;
+    }
+
+    .hero-kicker {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      margin-top: 18px;
+    }
+
+    h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin-top: 26px;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .hero-points div {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(159, 61, 34, 0.1);
+      font-size: 14px;
+    }
+
+    .hero-visual {
+      padding: 28px;
+      background: linear-gradient(180deg, rgba(31, 27, 22, 0.04), rgba(31, 27, 22, 0.01));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      border: 1px solid rgba(31, 27, 22, 0.08);
+      background: #000;
+      image-rendering: pixelated;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.18);
+    }
+
+    .toc {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px 20px;
+    }
+
+    .toc-card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 24px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 14px 16px;
+      border-radius: 14px;
+      color: var(--ink);
+      text-decoration: none;
+      background: #faf6ee;
+      border: 1px solid #eadfce;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .toc a:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: #fff8f2;
+    }
+
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px 48px;
+    }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 30px 24px;
+      margin-bottom: 22px;
+      scroll-margin-top: 24px;
+    }
+
+    ul, ol {
+      margin: 0 0 14px 20px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #fff6f2;
+      border-radius: 12px;
+      color: #5a4035;
+      margin: 16px 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .image-card {
+      background: #fbf7f0;
+      border: 1px solid #e7dbc8;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .image-card img {
+      display: block;
+      width: min(100%, 420px);
+      height: 210px;
+      margin: 0 auto;
+      background: #000;
+      image-rendering: pixelated;
+      object-fit: contain;
+    }
+
+    .image-card .caption {
+      padding: 14px 16px 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: #faf6ee;
+      border: 1px solid #eadfce;
+    }
+
+    .step strong {
+      color: var(--accent);
+    }
+
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-inner,
+      .grid-2,
+      .toc-grid,
+      .hero-points {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-visual,
+      section,
+      .toc-card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="hero-kicker">L102 LIGHT METER GUIDE</span>
+        <h1>L102 测光表网页说明书</h1>
+        <p class="lead">这是一份面向日常使用的图文说明，覆盖主页读数、参数调整、设置菜单，以及当前固件界面的实际布局与操作方式。</p>
+        <div class="hero-points">
+          <div>支持 `AV / TV / EV` 三种工作模式</div>
+          <div>支持 ISO、EV、休眠时间等参数调整</div>
+          <div>支持单次测光与实时测光</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="ui_screens/preview/01_home_av.png" alt="L102 界面总览">
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-card">
+      <h2>目录</h2>
+      <div class="toc-grid">
+        <a href="#overview">1. 设备概览</a>
+        <a href="#keys">2. 按键说明</a>
+        <a href="#home">3. 主界面说明</a>
+        <a href="#launcher">4. 功能入口</a>
+        <a href="#adjust">5. 参数调整</a>
+        <a href="#settings">6. 设置菜单</a>
+        <a href="#about">7. About 页面</a>
+        <a href="#workflow">8. 使用流程</a>
+        <a href="#sleep">9. 休眠与唤醒</a>
+        <a href="#faq">10. 常见问题</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="overview">
+      <h2>1. 设备概览</h2>
+      <p>L102 是一套基于 HC32L021 的便携式测光表固件，当前版本支持：</p>
+      <ul>
+        <li>光圈优先 `AV` / 快门优先 `TV` / EV 模式</li>
+        <li>ISO 调整</li>
+        <li>EV 曝光补偿</li>
+        <li>自动休眠与按键唤醒</li>
+        <li>单次测光 / 实时测光</li>
+      </ul>
+      <div class="note">如果你刚上手，建议先看“按键说明”和“快速测光流程”。</div>
+    </section>
+
+    <section id="keys">
+      <h2>2. 按键说明</h2>
+      <ul>
+        <li><strong>设置/返回键</strong>：主页中用于进入当前图标功能；列表或设置页中用于返回上一级。</li>
+        <li><strong>测光键</strong>：主页中触发一次测光；列表或设置页中用于确认当前项目。</li>
+        <li><strong>加 / 减键</strong>：用于切换项目或调整参数。</li>
+      </ul>
+    </section>
+
+    <section id="home">
+      <h2>3. 主界面说明</h2>
+      <div class="grid-2">
+        <div class="image-card">
+          <img src="ui_screens/raw/01_home_av.png" alt="AV 模式主页">
+          <div class="caption">AV 模式主页：上方显示快门，右上角显示 ISO，下方显示当前光圈，右下角显示电池。</div>
+        </div>
+        <div class="image-card">
+          <img src="ui_screens/raw/02_home_tv.png" alt="TV 模式主页">
+          <div class="caption">TV 模式主页：上方为当前快门，下方为推荐光圈，左侧箭头指向当前优先参数。</div>
+        </div>
+      </div>
+      <div class="image-card" style="margin-top:18px;">
+        <img src="ui_screens/raw/03_home_ev.png" alt="EV 模式主页">
+        <div class="caption">EV 模式主页：上方显示 EV，右上角可交替显示ISO值/EV补偿值（如果不是0），下方显示当前 EV 读数。</div>
+      </div>
+    </section>
+
+    <section id="launcher">
+      <h2>4. 功能入口</h2>
+      <div class="image-card">
+        <img src="ui_screens/raw/launcher_icon_line.png" alt="功能入口图标">
+          <div class="caption">主页图标入口：Home、ISO、MODE、EV、SET、About。</div>
+      </div>
+      <ul style="margin-top:18px;">
+        <li><strong>Home</strong>：返回测光主页</li>
+        <li><strong>ISO</strong>：调整感光度</li>
+        <li><strong>MODE</strong>：切换 `AV / TV / EV`</li>
+        <li><strong>EV</strong>：设置曝光补偿</li>
+        <li><strong>SET</strong>：进入设置菜单</li>
+        <li><strong>About</strong>：查看版本、传感器和设备信息</li>
+      </ul>
+    </section>
+
+    <section id="adjust">
+      <h2>5. 参数调整</h2>
+      <div class="grid-2">
+        <div class="image-card">
+          <img src="ui_screens/raw/20_iso_wheel.png" alt="ISO 调整页面">
+          <div class="caption">ISO 调整：进入 ISO 页面后，用加减键切换数值。</div>
+        </div>
+        <div class="image-card">
+          <img src="ui_screens/raw/21_mode_wheel.png" alt="模式调整页面">
+          <div class="caption">模式调整：可在 `AV`、`TV`、`EV` 之间切换。</div>
+        </div>
+      </div>
+      <div class="image-card" style="margin-top:18px;">
+        <img src="ui_screens/raw/22_ev_wheel.png" alt="EV 调整页面">
+        <div class="caption">EV 调整：可做正负曝光补偿，例如 `-0.5`、`+0.5`、`+1.0`。</div>
+      </div>
+    </section>
+
+    <section id="settings">
+      <h2>6. 设置菜单</h2>
+      <p>当前固件设置菜单包含以下项目：</p>
+      <ul>
+        <li><strong>Aperture Set</strong>：启用或禁用指定光圈档位</li>
+        <li><strong>Shutter Set</strong>：启用或禁用指定快门档位</li>
+        <li><strong>Live Meter</strong>：开启或关闭实时测光</li>
+        <li><strong>Dark Mode</strong>：深浅显示模式切换</li>
+        <li><strong>Sleep Time</strong>：设置自动休眠时间</li>
+      </ul>
+
+      <div class="grid-2">
+        <div class="image-card">
+          <img src="ui_screens/raw/30_set_menu_opt3001.png" alt="设置菜单">
+          <div class="caption">设置菜单示意图 1。</div>
+        </div>
+        <div class="image-card">
+          <img src="ui_screens/raw/31_set_menu_opt4001.png" alt="设置菜单示意图 2">
+          <div class="caption">设置菜单示意图 2。</div>
+        </div>
+      </div>
+
+      <h3>休眠时间设置</h3>
+      <div class="image-card">
+        <img src="ui_screens/raw/32_sleep_menu.png" alt="休眠时间设置">
+        <div class="caption">可选 `1 min`、`2 min`、`4 min`。</div>
+      </div>
+
+      <h3>光圈档位设置</h3>
+      <div class="image-card">
+        <img src="ui_screens/raw/33_aperture_menu.png" alt="光圈设置页面">
+        <div class="caption">`ON` 表示启用，`OFF` 表示关闭，`En:xx` 表示当前启用数量。</div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>7. About 页面</h2>
+      <div class="image-card">
+        <img src="ui_screens/raw/34_about_page.png" alt="About 页面">
+        <div class="caption">可查看固件版本、硬件版本、传感器型号和当前照度信息。</div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <h2>8. 使用流程</h2>
+      <div class="steps">
+        <div class="step"><strong>快速测光</strong><br>开机进入主页，设置里可以选择 `AV`（光圈优先）、`TV`（快门优先）或 `EV`（曝光值），设定 `ISO` 和 `EV` 补偿，然后按 `测光键` 获取结果。</div>
+        <div class="step"><strong>实时测光</strong><br>进入 `SET`，打开 `Live Meter`，返回主页后设备会持续更新测光结果。</div>
+        <div class="step"><strong>调整常用档位</strong><br>在 `Aperture Set` 或 `Shutter Set` 中关闭不常用档位，可减少切换时的无效选项。</div>
+      </div>
+    </section>
+
+    <section id="sleep">
+      <h2>9. 休眠与唤醒</h2>
+      <ul>
+        <li>设备在达到设定空闲时间后会自动熄屏并进入深度休眠。</li>
+        <li>按键可以唤醒设备。</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2>10. 常见问题</h2>
+      <h3>屏幕黑屏但机器似乎还在运行怎么办？</h3>
+      <ol>
+        <li>先尝试普通按键唤醒</li>
+        <li>若无恢复，长按设置/返回键约 8 秒重置界面并重新初始化屏幕</li>
+      </ol>
+
+    </section>
+  </main>
+
+  <footer>
+    网页说明书文件位置：<code>docs/manual.html</code><br>
+    建议直接用浏览器打开查看，或部署到静态网页服务器中分享给其他用户。
+  </footer>
+</body>
+</html>
